@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Excuse Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8049a;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    p.subtitle { color: #64748b; margin-bottom: 2rem; }
+    .card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card p { font-size: 1.35rem; line-height: 1.6; }
+    .buttons {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .primary {
+      background: #3b82f6;
+      color: white;
+    }
+    .primary:hover { background: #2563eb; }
+    .secondary {
+      background: white;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+    }
+    .secondary:hover { background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Excuse Generator</h1>
+    <p class="subtitle">For when “traffic was bad” just isn’t enough.</p>
+
+    <div class="card">
+      <p id="excuse">Loading your excuse...</p>
+    </div>
+
+    <div class="buttons">
+      <button class="primary" onclick="loadExcuse()">Generate another excuse</button>
+      <button class="secondary" onclick="copyExcuse()">Copy excuse</button>
+    </div>
+  </div>
+
+  <script>
+    async function loadExcuse() {
+      try {
+        const response = await fetch('http://localhost:3000/api/excuse');
+        const data = await response.json();
+        document.getElementById('excuse').innerText = data.excuse;
+      } catch (error) {
+        document.getElementById('excuse').innerText = 'Could not reach the excuse server 😢';
+      }
+    }
+
+    async function copyExcuse() {
+      const text = document.getElementById('excuse').innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert('Copied to clipboard!');
+      } catch {
+        alert('Could not copy.');
+      }
+    }
+
+    // Load one excuse when the page opens
+    loadExcuse();
+  </script>
+</body>
+</html>
 
