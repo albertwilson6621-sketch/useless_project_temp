@@ -15,7 +15,7 @@
 
 
 ### Project Description
-[ran]
+[it was a random generator that can perform ]
 
 ### The Problem (that doesn't exist)
 [What ridiculous problem are you solving?]
