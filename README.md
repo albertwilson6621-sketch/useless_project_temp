@@ -2,7 +2,7 @@
 
 
 
-# [Project Name] 🎯
+# [random excuse generator ] 🎯
 
 
 ## Basic Details
